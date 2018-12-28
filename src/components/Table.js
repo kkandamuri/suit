@@ -102,7 +102,9 @@ type TableProps = {
   /**
    * If set, the table will have a border drawn around it.
    */
-  bordered: booleaan;
+bordered: booleaan;
+setCustomHeight: boolean;
+tableHeight: number;
 };
 
 type TableDefaultProps = {
@@ -113,6 +115,8 @@ type TableDefaultProps = {
   onSort: null | (sortColumn: number) => void;
   noEmptySelection: boolean;
   bordered: boolean;
+  setCustomHeight: boolean;
+  tableHeight: number;
 };
 
 type TableState = {
@@ -139,6 +143,8 @@ export default class Table extends React.Component<TableDefaultProps, TableProps
     onSort: null,
     noEmptySelection: false,
     bordered: false,
+    setCustomHeight: false,
+    tableHeight: 0,
   };
 
   static makeCustomRenderer(column) {
@@ -155,6 +161,8 @@ export default class Table extends React.Component<TableDefaultProps, TableProps
     super(props);
     this.state = {
       sortedRows: this.props.rows,
+      setCustomHeight: false,
+      tableHeight: 0,
     };
     (this: any).handleSort = this.handleSort.bind(this);
     (this: any).rowSelect = this.rowSelect.bind(this);
@@ -279,6 +287,7 @@ export default class Table extends React.Component<TableDefaultProps, TableProps
     if (this.props.onSort) {
       options.onSortChange = this.handleSort;
     }
+    const height = `${this.props.tableHeight - 20}px`;
 
     return (
       <div>
@@ -291,6 +300,7 @@ export default class Table extends React.Component<TableDefaultProps, TableProps
           options={options}
           remote={this.remote}
           bordered={this.props.bordered}
+          height={this.props.setCustomHeight ? height : '380px'}
         >
           {columns}
         </BootstrapTable>

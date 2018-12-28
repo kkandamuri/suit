@@ -86,6 +86,14 @@ type MasterDetailsProps = {
    * See the noEmptySelection property of the Table component for details
    */
   noEmptySelection: boolean;
+  /**
+   * Set to true if we want to set custom height of Table
+   */
+  setCustomHeight: boolean;
+  /**
+   * Custom height of table set by parent component
+   */
+  tableHeight: number;
 };
 
 type MasterDetailsDefaultProps = {
@@ -98,6 +106,8 @@ type MasterDetailsDefaultProps = {
   split: ColumnCount;
   padding: number;
   noEmptySelection: boolean;
+  setCustomHeight: boolean;
+  tableHeight: number;
 };
 
 type MasterDetailsState = {
@@ -123,6 +133,8 @@ export default class MasterDetails extends React.Component<MasterDetailsDefaultP
     split: 8,
     padding: 0,
     noEmptySelection: false,
+    setCustomHeight: false,
+    tableHeight: 0,
   };
 
   static displayName = 'MasterDetails';
@@ -185,12 +197,14 @@ export default class MasterDetails extends React.Component<MasterDetailsDefaultP
                 selection={this.state.selectedRows}
                 multiSelect={this.props.multiSelect}
                 noEmptySelection={this.props.noEmptySelection}
+                setCustomHeight={this.props.setCustomHeight}
+                tableHeight={this.props.tableHeight}
               />
               {this.props.footer}
             </div>
           </Col>
           <Col lg={detailsWidth} md={detailsWidth} sm={12} xs={12} style={{ paddingLeft: halfPadding, paddingRight: 0 }}>
-            <Detail data={detailsRow} />
+            <Detail data={detailsRow} tableDetailsHeight={this.props.tableHeight} />
           </Col>
         </Row>
       </Grid>

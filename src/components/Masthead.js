@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 // @flow
 import React from 'react';
 import type { Children } from 'react';
 
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import sizeMe from 'react-sizeme';
 
 import Configurable from './Configurable';
 import MastheadUser from './MastheadUser';
@@ -219,4 +221,4 @@ class Masthead extends React.Component<MastheadDefaultProps, MastheadProps, Mast
   }
 }
 
-export default withRouter(Configurable(Masthead));
+export default sizeMe({ monitorHeight: true })(withRouter(Configurable(Masthead)));
